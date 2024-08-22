@@ -1,16 +1,10 @@
-from fastapi_sqlalchemy import db
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 
 from app.models.alumno_model import Alumno
-from alumno_schema import AlumnoSchema
 
-def get(_id: int):
-    return db.session.query(Alumno).filter(Alumno.id == _id).first()
+class AlumnoRepository:
+    def __init__(self, session: Session):
+        self.session = session
 
-def create(db: Session, alumno: AlumnoSchema):
-    db_alumno = Alumno(**alumno.model_dump())
-    db.add(db_alumno)
-    db.commit()
-    db.refresh((db_alumno))
-    return db_alumno
-
+    def get_alumno(self, alumno_id: int) -> Alumno:
+        return self.session.get(Alumno, alumno_id)

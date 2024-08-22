@@ -8,7 +8,7 @@ from core.database import get_session
 
 router = APIRouter()
 
-@router.post("/alumno")
+@router.post("/")
 async def create_alumno(
         alumno_data: Alumno,
         sesion: Session = Depends(get_session)):
@@ -18,9 +18,8 @@ async def create_alumno(
     sesion.refresh(alumno)
     return alumno
 
-@router.get("/alumno/{alumno_id}")
+@router.get("/{alumno_id}", response_model=Alumno)
 async def get_alumno(
-    #alumno_id: Annotated[int, Path(title="Alumno ID")],
     alumno_id: int,
     session: Session = Depends(get_session)
 ):
@@ -29,7 +28,7 @@ async def get_alumno(
         raise HTTPException(status_code=404, detail="Alumno no existe")
     return alumno
 
-@router.get("/alumnos")
+@router.get("/")
 async def get_alumnos(
         session: Session = Depends(get_session)
 ):

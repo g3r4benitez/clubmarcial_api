@@ -1,8 +1,7 @@
-from sqlalchemy.exc import IntegrityError
 from fastapi_sqlalchemy import db
 from sqlalchemy.orm import Session
 
-from alumno_model import Alumno
+from app.models.alumno_model import Alumno
 from alumno_schema import AlumnoSchema
 
 def get(_id: int):

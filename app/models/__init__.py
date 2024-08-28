@@ -1,0 +1,1 @@
+from alumno_model import Alumno
